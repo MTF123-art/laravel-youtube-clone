@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -13,18 +14,13 @@ class AuthController extends Controller
         return view('auth-page.register');
     }
 
-    public function register(Request $request){
-        $newuser = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed'
-        ]);
-
+    public function register(RegisterRequest $request){
+        $newuser = $request->validated();
         $newuser['password'] = Hash::make($newuser['password']);
 
         User::create($newuser);
 
-        return redirect('/login')->with('success', 'Akun berhasil dibuat!');
+        return redirect()->route('login')->with('success', 'Akun berhasil dibuat!');
     }
 
     public function showLoginForm(){
@@ -47,6 +43,6 @@ class AuthController extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect('/login')->with('success', 'Anda telah Logout!');
+        return redirect()->route('login')->with('success', 'Anda telah Logout!');
     }
 }
