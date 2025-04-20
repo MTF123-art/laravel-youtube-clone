@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function showRegisterForm(){
+    public function showRegisterForm()
+    {
         return view('auth-page.register');
     }
 
-    public function register(RegisterRequest $request){
+    public function register(RegisterRequest $request)
+    {
         $newuser = $request->validated();
         $newuser['password'] = Hash::make($newuser['password']);
 
@@ -23,17 +25,21 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Akun berhasil dibuat!');
     }
 
-    public function showLoginForm(){
+    public function showLoginForm()
+    {
         return view('auth-page.login');
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
-        if(Auth::attempt($credentials)){
+        $remember = $request->has('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->route('dashboard')->with('success', 'Login berhasil!');
         }
@@ -41,8 +47,13 @@ class AuthController extends Controller
         return back()->with('error', 'Login gagal, silahkan cek email dan password anda!');
     }
 
-    public function logout(){
+    public function logout(Request $request)
+    {
         Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect()->route('login')->with('success', 'Anda telah Logout!');
     }
 }

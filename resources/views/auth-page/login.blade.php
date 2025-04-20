@@ -26,6 +26,10 @@
             <input type="password" name="password" id="password" required>
          </li>
          <li>
+            <label for="remember">remember me</label>
+            <input type="checkbox" name="remember" id="remenber" required>
+         </li>
+         <li>
             <button type="submit">Login</button>
          </li>
       </ul>
