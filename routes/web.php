@@ -14,6 +14,9 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', function () {
-    return view('auth.dashboard');
-})->name('dashboard');
+
+Route::middleware('role:admin|user')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('auth.dashboard');
+    })->name('dashboard');
+});

@@ -27,7 +27,7 @@
          </li>
          <li>
             <label for="remember">remember me</label>
-            <input type="checkbox" name="remember" id="remenber" required>
+            <input type="checkbox" name="remember" id="remenber">
          </li>
          <li>
             <button type="submit">Login</button>
