@@ -17,17 +17,13 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $roles): Response
+    public function handle(Request $request, Closure $next, string $role): Response
     {
         if(!Auth::check()){
             return redirect('/login')->with('error', 'Anda harus login terlebih dahulu.');
         }
 
-        $userRole = Auth::user()->role;
-
-        $allowedRoles = explode('|', $roles);
-
-        if (!in_array($userRole, $allowedRoles)) {
+        if (Auth::user()->role !== $role) {
             return redirect('/')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
 
