@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
-    public function index () {
-        return view('auth.user.my-video');
+    public function index()
+    {
+        $videos = Auth::user()->videos()->latest()->get();
+        return view('auth.user.my-video', compact('videos'));
     }
-    public function addVideo () {
+    public function addVideo()
+    {
         return view('auth.user.add-video');
     }
-    public function storeVideo(){
+    public function storeVideo()
+    {
         dd('store video');
     }
 }
