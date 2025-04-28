@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('video_path');
             $table->string('thumbnail_path');
-            $table->integer('views');
             $table->timestamps();
         });
     }

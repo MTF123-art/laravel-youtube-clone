@@ -8,10 +8,12 @@
       @csrf
       <label for="title">Judul:</label><br>
       <input type="text" id="title" name="title"><br><br>
-      <label for="description">Deskripsi:</label><br>
-      <textarea id="description" name="description"></textarea><br><br>
       <label for="video">Video:</label><br>
       <input type="file" id="video" name="video"><br><br>
+      <label for="thumbnail">Thumbnail:</label><br>
+      <input type="file" id="thumbnail" name="thumbnail"><br><br>
+      <label for="description">Deskripsi:</label><br>
+      <textarea id="description" name="description"></textarea><br><br>
       <button type="submit">Simpan</button>
    </form>
    

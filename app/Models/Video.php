@@ -14,4 +14,8 @@ class Video extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function views()
+    {
+        return $this->hasMany(Video_views::class);
+    }
 }
